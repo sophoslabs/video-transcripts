@@ -1,0 +1,576 @@
+0:00:00.370,0:00:01.070
+Hi everyone.
+
+0:00:01.300,0:00:02.590
+My name is Salma Taoufiq.
+
+0:00:02.590,0:00:06.870
+I'm a data scientist at SophosAI
+and this is a summary of our team's
+
+0:00:06.870,0:00:10.559
+research efforts on benchmarking
+the capabilities of large language
+
+0:00:10.589,0:00:15.340
+models, also known as LLMs, for
+defensive cybersecurity use cases.
+
+0:00:16.485,0:00:19.814
+We've all been witnessing the
+recent progress in LLMs, which has
+
+0:00:19.814,0:00:21.724
+been nothing short of remarkable.
+
+0:00:22.135,0:00:26.855
+These powerful models have proven to be
+effective across a variety of generic
+
+0:00:26.915,0:00:31.374
+tasks, as shown by multiple leaderboards
+on platforms like HuggingFace.
+
+0:00:32.754,0:00:37.435
+For specialized areas like cybersecurity,
+where subject matter expertise is
+
+0:00:37.475,0:00:42.095
+key, it gets a bit trickier because
+it's hard to infer how these models
+
+0:00:42.095,0:00:46.205
+might do on such specialized domains
+from these generic leaderboards.
+
+0:00:47.175,0:00:50.625
+Here, fine-tuning and knowledge
+distillation techniques can greatly
+
+0:00:50.635,0:00:52.735
+enhance the effectiveness of LLMs.
+
+0:00:54.155,0:00:58.575
+In our study, we proposed three
+security-focused benchmark tasks to
+
+0:00:58.615,0:01:04.744
+assess various well-known LLMs and aid
+in selecting and evaluating the most
+
+0:01:04.754,0:01:09.775
+suitable base model for fine tuning
+or distillation for cybersecurity.
+
+0:01:10.244,0:01:14.675
+So for this analysis, here are
+our chosen LLM contestants.
+
+0:01:14.945,0:01:18.884
+We've picked them from several
+different organizations, including
+
+0:01:18.885,0:01:21.524
+OpenAI, Mosaic ML, and others.
+
+0:01:21.964,0:01:25.274
+And we have selected them
+based on different criteria;
+
+0:01:25.294,0:01:31.235
+so, number of parameters, context, window
+length, open- or closed-source, et cetera.
+
+0:01:32.255,0:01:35.524
+Here, you can see a full list
+of models that we considered
+
+0:01:35.524,0:01:37.634
+for our benchmarking trials.
+
+0:01:38.155,0:01:40.145
+On to our benchmarking tasks.
+
+0:01:40.524,0:01:44.854
+For the first one, we evaluate LLMs'
+ability to convert natural-language
+
+0:01:44.875,0:01:47.034
+questions into SQL queries.
+
+0:01:47.575,0:01:51.025
+The goal here is to facilitate
+information retrieval without
+
+0:01:51.044,0:01:53.055
+extensive technical expertise.
+
+0:01:53.914,0:01:58.054
+This capability can, for example,
+streamline security analysts'
+
+0:01:58.104,0:02:00.125
+incident investigation processes.
+
+0:02:01.160,0:02:05.550
+We approach this task as a three-shot
+prompting problem, as shown here.
+
+0:02:05.870,0:02:10.649
+First, the model is instructed
+to translate a request into SQL.
+
+0:02:11.049,0:02:15.730
+Then, some schema information is
+provided, so that it knows how the
+
+0:02:16.380,0:02:20.834
+underlying data is, and it can, for
+example, know which column names to use.
+
+0:02:21.475,0:02:27.274
+Then we provide the three shots, which
+are three example requests -- answer
+
+0:02:27.274,0:02:32.744
+pairs -- that are provided as reference
+to the model for what we want it to do.
+
+0:02:33.245,0:02:36.994
+And then the fourth request is
+the one we actually want answered.
+
+0:02:37.044,0:02:38.875
+And it's provided at the end here.
+
+0:02:40.315,0:02:43.955
+For this benchmark and using the
+template of the prompt we've seen,
+
+0:02:43.955,0:02:48.405
+we generate a hundred such prompts
+and collect the target queries
+
+0:02:48.434,0:02:50.454
+and target result sets for them.
+
+0:02:51.484,0:02:56.605
+We then evaluate our contestant models'
+responses based on three measures.
+
+0:02:57.335,0:03:01.025
+First, we check if the query
+from the model is an exact
+
+0:03:01.035,0:03:02.615
+match with the expected one.
+
+0:03:03.124,0:03:08.334
+If it is not, then we assess the accuracy
+of query execution through the comparison
+
+0:03:08.344,0:03:10.704
+of the results against the targets.
+
+0:03:12.035,0:03:15.695
+And because this may be prone to
+false positives and false negatives,
+
+0:03:15.885,0:03:20.225
+we further ask GPT-4 to evaluate
+the query statement equivalence.
+
+0:03:22.865,0:03:27.164
+And the results we've obtained are
+presented here, where we can see that
+
+0:03:27.434,0:03:32.334
+GPT-4 is our best performing model,
+as it has the highest accuracy.
+
+0:03:33.125,0:03:38.255
+It's closely followed by CodeLlama
+34 billion instruct, and then we
+
+0:03:38.255,0:03:40.504
+have the two Claude models, the V2.
+
+0:03:40.505,0:03:41.565
+1 and the Instant.
+
+0:03:42.640,0:03:47.690
+The CodeLlama performance here
+makes sense because these models are
+
+0:03:47.690,0:03:49.800
+specifically tuned to produce code.
+
+0:03:50.080,0:03:54.090
+We can see that even the smaller
+versions, so 13 billion and 7
+
+0:03:54.100,0:03:56.510
+billion, are faring quite well here.
+
+0:03:57.380,0:04:03.030
+And now, on to our second task, which is
+about the prediction of incident severity.
+
+0:04:03.510,0:04:09.019
+Here, we provide the models with
+semi-structured alert data that comes
+
+0:04:09.019,0:04:15.880
+from diverse detectors and makes up
+an incident, and we ask the models to
+
+0:04:15.880,0:04:22.210
+evaluate the severity of this input,
+given a predefined severity scale.
+
+0:04:23.049,0:04:29.289
+The task's objective here is to gauge
+models' intrinsic security knowledge, and
+
+0:04:29.309,0:04:34.789
+in this setup, a successful model can help
+analysts organize their incident queues,
+
+0:04:35.099,0:04:40.370
+as well as focus their efforts first
+and foremost on the more crucial events.
+
+0:04:42.094,0:04:44.695
+Here's an example prompt
+for this benchmark.
+
+0:04:45.900,0:04:50.530
+So we're basically instructing the
+model to look at raw alert data
+
+0:04:50.570,0:04:56.419
+pertaining to one incident and classify
+it based on the given categories
+
+0:04:56.980,0:04:59.329
+that are actually poorly defined.
+
+0:04:59.339,0:05:03.269
+So we give each one's name
+and the definition of it.
+
+0:05:03.945,0:05:09.045
+We also ask the model to provide
+its answer in a predefined format.
+
+0:05:09.045,0:05:13.335
+So we ask it to give it as a
+dictionary where the key is
+
+0:05:14.055,0:05:19.614
+severity_pred and the value is
+whichever one it picks from these.
+
+0:05:20.484,0:05:25.815
+This is to make it easier for us to
+process these answers and evaluate them.
+
+0:05:26.575,0:05:30.735
+At the end of this prompt, we provide
+the actual input alert data here.
+
+0:05:32.875,0:05:38.145
+For this benchmark, we've picked a few
+thousand severity-labeled incidents
+
+0:05:38.675,0:05:41.185
+and used them to evaluate our models.
+
+0:05:42.365,0:05:46.355
+Please note that we have identified
+some label noise in the severity
+
+0:05:46.355,0:05:51.154
+annotations, and that lowers the
+ceiling of achievable performance here.
+
+0:05:52.164,0:05:57.025
+Regardless, out of the box, none of
+the models performed well enough for
+
+0:05:57.025,0:06:02.175
+us to convincingly say they were doing
+anything better than arbitrary guesswork.
+
+0:06:02.594,0:06:07.494
+We tried different prompting settings
+from zero-shot to three-shot with
+
+0:06:07.494,0:06:11.314
+random incidents as well as with
+nearest neighbors, and none of
+
+0:06:11.314,0:06:14.884
+these experiments crossed the
+threshold of baseline accuracy.
+
+0:06:16.155,0:06:20.954
+We are showing here one
+model per experimental setup.
+
+0:06:20.994,0:06:26.835
+And in green, we have XGBoost on two
+features that we've identified as most
+
+0:06:26.835,0:06:31.784
+commonly used by security analysts in
+their initial assessment of severity.
+
+0:06:32.434,0:06:36.164
+Then in a zero-shot prompting
+setting, we have Claude V2.
+
+0:06:36.184,0:06:37.114
+That was the best.
+
+0:06:37.585,0:06:41.134
+And in three shots, we have GPT-4.
+
+0:06:41.150,0:06:45.420
+Our best performing model, with
+nearly 50 percent accuracy (which
+
+0:06:45.420,0:06:50.290
+is still quite low), is XGBoost
+with GPT-3 embeddings of the input.
+
+0:06:50.990,0:06:54.320
+As we can see here, this was
+a benchmark that the models
+
+0:06:54.340,0:06:55.720
+have really struggled with.
+
+0:06:57.289,0:07:01.870
+In this benchmark, we've gotten some
+unexpected responses at times, where
+
+0:07:01.870,0:07:06.440
+even though in our prompt, if you recall,
+we really tried to hammer on the format
+
+0:07:06.470,0:07:10.749
+that we want the model to provide the
+answer in and what values it can use.
+
+0:07:12.155,0:07:17.615
+Yet, in spite of those specifications, the
+model sometimes did whatever they wanted.
+
+0:07:17.925,0:07:21.655
+For example, it started writing
+a Python function in one
+
+0:07:21.655,0:07:23.875
+instance to provide its answer.
+
+0:07:25.765,0:07:30.385
+In another example, we can see that the
+model could not find the answer, and so it
+
+0:07:30.385,0:07:33.264
+says that its prediction is undetermined.
+
+0:07:36.034,0:07:40.414
+In some cases, the model even
+just regurgitated as a response
+
+0:07:40.424,0:07:46.334
+some alert data that was from the
+incident input or added more to it.
+
+0:07:47.559,0:07:52.840
+For our third and final task,
+we have incident summarization.
+
+0:07:53.360,0:07:59.210
+Here we want to assess the ability
+of a language model to process raw
+
+0:07:59.210,0:08:04.570
+semi-structured alert data input
+similar to the previous benchmark,
+
+0:08:05.020,0:08:10.460
+but now we wanted to summarize it in a
+human-readable, nicely formatted way so
+
+0:08:10.469,0:08:15.650
+that security analysts can kickstart their
+work based on the summary and description
+
+0:08:15.650,0:08:20.200
+of what's happening, and then they can
+quickly decide what actions are needed,
+
+0:08:20.260,0:08:23.729
+if any, to resolve the incident on hand.
+
+0:08:24.405,0:08:28.705
+For this benchmark, we provide the
+models with a detailed prompt outlining
+
+0:08:28.724,0:08:32.904
+what we want them to extract and how
+the final report should look like.
+
+0:08:33.614,0:08:38.594
+There are different components, starting
+with a summary and overview in a couple
+
+0:08:38.595,0:08:43.465
+of sentences about what's happening in
+the incident, then we ask it to extract
+
+0:08:43.495,0:08:48.415
+specific components like minor techniques
+that are observed, the impacted hosts,
+
+0:08:48.765,0:08:54.230
+the active users, as well as a description
+of the most important events in the
+
+0:08:54.230,0:08:59.780
+incident, in addition to the extraction
+of the key artifacts, whether they are
+
+0:09:00.050,0:09:03.100
+file paths or command line invocations.
+
+0:09:04.150,0:09:08.979
+The evaluation of this benchmark -- we
+have 315 incidents for which we have
+
+0:09:08.979,0:09:14.020
+human analyst descriptions as our
+reference, and we try to evaluate model
+
+0:09:14.030,0:09:16.240
+descriptions on different aspects.
+
+0:09:16.520,0:09:21.995
+For instance, for factuality, we extract
+all the facts that are found by the models
+
+0:09:22.035,0:09:26.975
+and compare them to make sure that they
+are factually accurate and relevant.
+
+0:09:27.325,0:09:31.824
+We use the least common subsequence
+and Lorenz time distances for that.
+
+0:09:32.184,0:09:38.475
+For the semantics of the entirety of the
+descriptions, we also rely on BERTScore,
+
+0:09:38.495,0:09:43.064
+the cosine similarity between the GPT-3
+embeddings, as well as the METEOR score.
+
+0:09:45.204,0:09:48.814
+And here are the results
+we've obtained for our models.
+
+0:09:48.814,0:09:54.135
+GPT-4 is the clear winner here,
+and it scores higher across
+
+0:09:54.135,0:09:55.665
+the board in all metrics.
+
+0:09:55.925,0:09:59.005
+Then we have Claude V2 and GPT-3.5
+
+0:09:59.005,0:10:03.385
+Turbo as our best performance
+in the proprietary model space.
+
+0:10:03.745,0:10:08.595
+Then we have LLaMA2 70 billion as the
+best performing open-source model.
+
+0:10:09.205,0:10:13.255
+The remaining models, like
+CodeLlama 34 billion
+
+0:10:13.640,0:10:15.920
+and others, are lagging behind.
+
+0:10:17.550,0:10:21.890
+The question of which model to use
+for your security application is
+
+0:10:21.959,0:10:26.809
+quite nuanced and involves thinking
+about a lot of different factors.
+
+0:10:27.269,0:10:30.850
+This video has been an attempt
+at giving you more information
+
+0:10:30.880,0:10:34.739
+on how to make this decision, as
+well as more food for thought.
+
+0:10:34.740,0:10:40.107
+On purely performance terms, we noticed
+that GPT-4 and Claude V2 performed
+
+0:10:40.107,0:10:44.269
+the best across all our benchmarks.
+
+0:10:45.090,0:10:50.030
+Key takeaways here are that large language
+models are quite good out of the box at
+
+0:10:50.040,0:10:52.360
+threat hunting and information retrieval.
+
+0:10:53.310,0:10:56.949
+They would require some guardrails
+and hand-holding, but we think that
+
+0:10:56.949,0:11:01.639
+this is a potential application where
+LLMs can be used out of the box with
+
+0:11:01.639,0:11:03.440
+some careful prompt engineering.
+
+0:11:04.499,0:11:10.130
+In terms of incident summarization from
+raw data, we saw that most LLMs did
+
+0:11:10.510,0:11:15.169
+an okay job, but they could definitely
+be further improved with fine tuning.
+
+0:11:16.460,0:11:21.160
+Finally, with regards to the evaluation
+of artifacts and severity prediction,
+
+0:11:21.750,0:11:26.089
+that's a hard problem for pre-trained
+and publicly available LLMs.
+
+0:11:27.510,0:11:31.590
+This would probably require a more
+specialized element specifically
+
+0:11:31.590,0:11:33.760
+trained on cybersecurity data.
+
+0:11:35.289,0:11:38.580
+And with this, I would like to
+thank you for watching this video.
