@@ -1,0 +1,196 @@
+0:00:00.079,0:00:03.389
+Lee Kirkpatrick: Hi, my name is Lee
+Kirkpatrick, and I'm an incident lead
+
+0:00:03.399,0:00:05.219
+with the Sophos Rapid Response team.
+
+0:00:05.519,0:00:08.659
+And today I'm going to be
+introducing a series surrounding
+
+0:00:08.659,0:00:10.159
+the Remote Desktop Protocol.
+
+0:00:10.749,0:00:15.979
+So the Remote Desktop Protocol, or RDP for
+short, was developed by Microsoft as a way
+
+0:00:16.149,0:00:20.579
+to allow users, administrators, whoever
+else, to connect to remote computers
+
+0:00:20.634,0:00:25.404
+over a network connection and provide
+them with a graphical user interface.
+
+0:00:25.844,0:00:29.894
+Now, the tools required for this come
+as standard on Microsoft Windows.
+
+0:00:29.964,0:00:33.714
+So to initiate and set up an RDP
+connection, all of the tools that are
+
+0:00:33.714,0:00:35.624
+required to do that are there by default.
+
+0:00:35.974,0:00:38.764
+And because of these reasons,
+it's something that's used quite
+
+0:00:38.764,0:00:42.524
+extensively throughout networks
+by users and administrators in
+
+0:00:42.524,0:00:44.644
+order to access remote machines.
+
+0:00:45.664,0:00:50.394
+Now, unfortunately, due to the
+widespread use of RDP, it's
+
+0:00:50.394,0:00:54.084
+something that's also quite commonly
+abused by ransomware groups.
+
+0:00:54.524,0:00:56.304
+And there's a number of reasons for this.
+
+0:00:56.464,0:01:00.524
+It's because it blends in with typical
+user and administrative behavior.
+
+0:01:00.954,0:01:03.644
+They're not having to bring in
+those additional tools that may
+
+0:01:03.644,0:01:06.044
+be detected by antivirus or EDR.
+
+0:01:06.484,0:01:10.144
+It provides them with that graphical user
+interface that may make it easier for
+
+0:01:10.144,0:01:15.484
+them to browse files for exfiltration,
+to install and use various applications.
+
+0:01:16.002,0:01:19.632
+Attackers also know that RDP is
+quite commonly misconfigured or
+
+0:01:19.642,0:01:21.662
+misused throughout an environment.
+
+0:01:22.352,0:01:26.902
+There's a graph here from Shodan that
+shows the exposure of the remote desktop
+
+0:01:26.912,0:01:28.642
+protocol to the internet, for example.
+
+0:01:29.372,0:01:32.592
+And as you can see throughout the
+years, there's been quite a large
+
+0:01:32.622,0:01:37.052
+number of devices that do have RDP
+exposed to the internet, anywhere
+
+0:01:37.052,0:01:38.822
+from three to four million, roughly.
+
+0:01:39.477,0:01:42.947
+Now, granted, some of those are going
+to be honeypots, some of those are
+
+0:01:42.947,0:01:46.207
+going to be test machines, and some
+of those are probably even going to be
+
+0:01:46.207,0:01:49.847
+attacker machines, but there's still a
+large number of devices that have RDP
+
+0:01:49.847,0:01:53.797
+exposed, and there's still a lot of
+organizations that expose RDP as a means
+
+0:01:53.797,0:01:55.377
+of remote access when they shouldn't.
+
+0:01:56.107,0:01:59.447
+Now, unfortunately, quite commonly, when
+we're brought in to deal with an incident
+
+0:01:59.447,0:02:04.687
+and we find the root cause was because
+of exposed RDP, the accounts within
+
+0:02:04.687,0:02:09.997
+the organization have weak credentials
+associated with them, and quite commonly
+
+0:02:09.997,0:02:13.787
+what we see is attackers managed to
+actually obtain access by brute-forcing
+
+0:02:13.807,0:02:18.877
+the administrator account because it has
+a weak password, such as "password1!"
+
+0:02:18.897,0:02:19.717
+for example.
+
+0:02:20.537,0:02:25.892
+We also see that there's a lot of
+misuse of RDP within organizations.
+
+0:02:25.922,0:02:30.232
+We see administrators incorrectly using
+highly privileged accounts for RDP, such
+
+0:02:30.232,0:02:34.152
+as service accounts or domain admins when
+they should be using the principle of
+
+0:02:34.152,0:02:38.772
+least privilege and only accessing devices
+with RDP with low-privileged accounts
+
+0:02:38.772,0:02:41.067
+to perform that task and that task only.
+
+0:02:41.597,0:02:46.367
+We also see administrators disabling
+security features of RDP, such
+
+0:02:46.367,0:02:49.647
+as network level authentication,
+which we'll discuss a lot more
+
+0:02:49.647,0:02:51.247
+in depth throughout this series.
+
+0:02:51.817,0:02:54.427
+We also see lack of
+things like segregation.
+
+0:02:54.897,0:03:00.087
+So why was James from HR able to RDP
+to a domain controller, for example?
+
+0:03:01.042,0:03:05.132
+Now, please join us throughout the series
+where we'll discuss some tips and tricks
+
+0:03:05.132,0:03:09.532
+on how you can use Sophos to better secure
+your environment and potentially identify
+
+0:03:09.732,0:03:12.112
+suspicious or malicious RDP abuse.
+
+0:03:12.362,0:03:12.862
+Thank you.
