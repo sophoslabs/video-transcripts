@@ -1,0 +1,299 @@
+0:00:00.799,0:00:01.299
+Lee Kirkpatrick: Hi.
+
+0:00:01.580,0:00:04.140
+My name is Lee Kirkpatrick,
+and I'm an incident lead with
+
+0:00:04.140,0:00:05.740
+the Sophos Rapid Response Team.
+
+0:00:06.090,0:00:10.019
+And in today's video, we're going to be
+discussing some of the typical RDP queries
+
+0:00:10.019,0:00:12.649
+that we use during our investigations.
+
+0:00:13.139,0:00:15.559
+Now, I'm not going to go into
+great depth about all of these
+
+0:00:15.559,0:00:17.169
+queries and exactly what they do.
+
+0:00:17.439,0:00:21.049
+In a later video, we'll actually be
+showcasing these, how you can run
+
+0:00:21.049,0:00:24.179
+them in Sophos Central, and what
+the output may look like for you.
+
+0:00:24.770,0:00:27.490
+But what we will be doing is just
+running through some of the typical
+
+0:00:27.490,0:00:31.494
+queries that we utilize to get you
+back up to speed with what you should
+
+0:00:31.494,0:00:33.035
+be looking for with regards to RDP.
+
+0:00:34.075,0:00:39.055
+Now, the first query that we typically run
+is the 21-40 local session login events.
+
+0:00:39.455,0:00:44.034
+This actually queries for the typical
+IDs that we're looking for in the
+
+0:00:44.065,0:00:47.875
+Terminal Services Local Session
+Manager operational event log to show
+
+0:00:47.904,0:00:52.045
+connections, disconnects, reconnections,
+all of those sorts of things.
+
+0:00:52.510,0:00:57.390
+We also subsequently used the 1149 RDP
+logins query which looks in the Terminal
+
+0:00:57.390,0:01:01.170
+Services Remote Connection Manager
+operational, specifically for the event
+
+0:01:01.170,0:01:07.060
+ID 1149 as the name suggests in order to
+pull out those successful RDP connections.
+
+0:01:07.685,0:01:11.365
+Now you may think it's a little bit
+redundant to query both of these event
+
+0:01:11.375,0:01:13.435
+logs, but there's a reason for that.
+
+0:01:13.465,0:01:16.225
+And that may be that the
+attacker has cleared one of the
+
+0:01:16.225,0:01:17.535
+event logs, but not the other.
+
+0:01:17.814,0:01:20.875
+It may be that there was an error
+in actually logging that event
+
+0:01:20.875,0:01:23.785
+for whatever reason, and one event
+log has it and the other doesn't.
+
+0:01:24.125,0:01:28.034
+So always good to use as many sources
+as possible when you're trying to look
+
+0:01:28.044,0:01:30.175
+for things like RDP lateral movement.
+
+0:01:30.880,0:01:34.110
+Another really useful query, and
+we've discussed about the dangers
+
+0:01:34.110,0:01:38.320
+of exposing RDP to the internet in
+previous videos, is a query called
+
+0:01:38.390,0:01:40.780
+RDP Logins from External IPs.
+
+0:01:41.160,0:01:43.979
+And the name is pretty obvious
+as to what that query does.
+
+0:01:43.980,0:01:48.009
+It looks for RDP connections
+from external IP addresses.
+
+0:01:48.610,0:01:52.770
+Now, this query actually looks in both of
+the previous aforementioned event logs.
+
+0:01:53.039,0:01:55.979
+And as I say, something you should
+definitely run throughout your
+
+0:01:55.979,0:01:59.569
+environment in order to identify if
+there's potentially any RDP logins
+
+0:01:59.570,0:02:02.009
+occurring from external IP addresses.
+
+0:02:03.390,0:02:07.810
+Now, another query that I think quite
+commonly gets overlooked with regards to
+
+0:02:07.820,0:02:12.590
+RDP is the 4624_4625 login events query.
+
+0:02:12.990,0:02:18.020
+Now, this is actually looking in the
+security event log for 4624 event IDs,
+
+0:02:18.059,0:02:23.329
+which would be a successful logon, or
+a 4625, which would be a failed logon.
+
+0:02:24.040,0:02:26.900
+Now, typically when we're looking for
+these events, it's normally because
+
+0:02:26.910,0:02:28.840
+we're looking for network-based logons.
+
+0:02:29.355,0:02:30.515
+And that's absolutely fine.
+
+0:02:30.515,0:02:31.205
+You should be.
+
+0:02:31.595,0:02:34.285
+And that would be a logon of type three.
+
+0:02:34.295,0:02:36.915
+So with each of these events,
+there's a logon type, and that kind
+
+0:02:36.915,0:02:38.945
+of indicates what that logon is.
+
+0:02:38.955,0:02:42.614
+So a logon type three would be a
+network-based logon, and a logon type
+
+0:02:42.655,0:02:45.515
+10 would be an RDP logon, for example.
+
+0:02:46.114,0:02:50.775
+Now, the reason that we query for this,
+when we're actually looking for possible
+
+0:02:50.805,0:02:57.145
+RDP lateral movement, is because it
+can help us identify failed logins when
+
+0:02:57.225,0:02:59.655
+Network Level Authentication is enabled.
+
+0:03:00.114,0:03:05.624
+So with RDP, if you fail to logon and
+Network Level Authentication or NLA
+
+0:03:05.624,0:03:10.825
+is enabled, you will see a 4625, so
+a failed logon with a logon type 3.
+
+0:03:11.395,0:03:14.225
+Now that may be a little bit confusing
+because you would think that's a
+
+0:03:14.225,0:03:16.105
+network-based logon, and it is.
+
+0:03:16.435,0:03:19.895
+But typically they're associated
+with something like SMB, for example.
+
+0:03:20.215,0:03:21.725
+So why are we seeing that here?
+
+0:03:21.875,0:03:26.225
+And that's because of network-level
+authentication being enabled with RDP.
+
+0:03:26.544,0:03:31.394
+It authenticates over the network
+prior to establishing the RDP session.
+
+0:03:32.004,0:03:36.715
+So it's just as important to look for
+those failed logon events as it is
+
+0:03:36.745,0:03:38.695
+those successful logon events as well.
+
+0:03:39.430,0:03:43.530
+Now, what you can also do with Sophos is
+you don't just have to use it in order
+
+0:03:43.530,0:03:48.239
+to try and identify lateral movement
+with RDP; you can also use it to identify
+
+0:03:48.280,0:03:50.400
+misconfigurations within your environment.
+
+0:03:50.929,0:03:55.789
+So, a lot of the times when we go into
+environments for an investigation,
+
+0:03:56.305,0:03:59.245
+we look for things that are
+misconfigured, and one of those being,
+
+0:03:59.245,0:04:02.905
+especially with RDP, network-level
+authentication being disabled.
+
+0:04:03.215,0:04:05.725
+Now, the reason that's enabled
+by default is because it adds
+
+0:04:05.765,0:04:10.545
+additional layers of security, so
+disabling that is not a good idea.
+
+0:04:10.895,0:04:14.784
+And what we've done in this presentation
+is create a really quick query that
+
+0:04:15.194,0:04:20.315
+queries the registry, and looks for a
+specific key having a certain value that
+
+0:04:20.315,0:04:23.215
+would indicate that NLA has been disabled.
+
+0:04:23.575,0:04:29.405
+So not only can you use Sophos to
+identify RDP lateral movement, you
+
+0:04:29.405,0:04:33.985
+can also use it to proactively find
+misconfigurations within your environment
+
+0:04:34.225,0:04:38.235
+and make sure that you fix those prior
+to an incident actually occurring.
+
+0:04:39.455,0:04:40.724
+Thank you very much for your time.
+
+0:04:40.955,0:04:44.965
+I hope this video has helped you better
+understand what queries you can use in
+
+0:04:44.985,0:04:49.335
+order to better identify lateral movement
+using RDP and hopefully giving you a
+
+0:04:49.435,0:04:53.055
+nice little tip on how you can better
+identify possible misconfigurations.
+
+0:04:53.224,0:04:55.534
+Thank you very much for your time
+and catch you on the next video.

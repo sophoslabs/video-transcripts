@@ -1,0 +1,259 @@
+0:00:00.659,0:00:03.590
+Lee Kirkpatrick: Hi, my name is Lee
+Kirkpatrick, and I'm an incident lead with
+
+0:00:03.590,0:00:09.129
+the Sophos Rapid Response team, and today
+we're going to be talking about RDP bias.
+
+0:00:09.879,0:00:13.180
+Now, most of us, I'm sure, are quite
+familiar with how to find and look
+
+0:00:13.180,0:00:17.740
+for suspicious RDP lateral movement,
+whether that's looking based on
+
+0:00:17.740,0:00:22.040
+known compromised users, so maybe
+you have an alert from antivirus or
+
+0:00:22.079,0:00:26.050
+EDR that's associated with a user and
+you're currently pivoting from that.
+
+0:00:26.384,0:00:30.525
+Maybe you're looking at logins occurring
+at strange times or logins with
+
+0:00:30.555,0:00:35.585
+unsuspecting users -- so why is James
+connecting to a domain controller at 3 a.m.,
+
+0:00:35.585,0:00:38.905
+for example, when he typically
+only accesses our Sage servers?
+
+0:00:39.184,0:00:41.855
+That would be a login
+from an unexpected user.
+
+0:00:41.855,0:00:44.115
+Or why is someone logging in at 4 a.m.
+
+0:00:44.244,0:00:47.864
+when they typically only log in
+between the hours of 9 and 5?
+
+0:00:47.865,0:00:51.154
+Looking for those typical things is
+something I'm sure we're all familiar
+
+0:00:51.154,0:00:56.566
+with, but maybe something that's a little
+less familiar is known as the RDP bias.
+
+0:00:57.096,0:01:00.966
+Now, this event is available in the
+Microsoft Windows Remote Desktop
+
+0:01:00.966,0:01:06.166
+Services RDP Core TS Operational
+Event Log, and it's Event ID 104.
+
+0:01:07.876,0:01:11.676
+Now, we've observed this event being
+generated on Windows 10 and above,
+
+0:01:11.956,0:01:14.306
+and Windows Server 2016 and above.
+
+0:01:14.541,0:01:18.241
+So if you're performing an investigation
+on a legacy operating system, it's
+
+0:01:18.241,0:01:21.461
+unlikely that you're actually going
+to see these events, but with most
+
+0:01:21.461,0:01:25.431
+organizations shifting over to some
+of these newer operating systems, it's
+
+0:01:25.491,0:01:28.071
+definitely something that you're still
+going to want to keep an eye out for.
+
+0:01:28.761,0:01:33.226
+Now what this event shows you
+is the time zone bias from
+
+0:01:33.226,0:01:36.516
+UTC of the connecting machine.
+
+0:01:37.126,0:01:40.946
+Now that's really important because
+it can help you identify suspicious
+
+0:01:40.966,0:01:45.456
+RDP connections based on the
+time zone of that RDP connection.
+
+0:01:46.016,0:01:49.616
+So let's say, as an example, your
+users are typically based out of the
+
+0:01:49.626,0:01:54.766
+UK and their time zone bias from UTC at
+present would be zero hours from UTC.
+
+0:01:55.266,0:01:58.766
+And typically when you see them
+RDP into devices, you would have
+
+0:01:58.806,0:02:00.666
+a client time zone bias of zero.
+
+0:02:01.396,0:02:06.166
+Suddenly, you start seeing client time
+zone biases of eight or six or various
+
+0:02:06.166,0:02:10.836
+other values that differ from the norm for
+those users -- that could help you hone in
+
+0:02:10.846,0:02:13.616
+on potentially suspicious RDP connections.
+
+0:02:13.996,0:02:19.026
+Let's take an example where a user's
+credentials have been phished, the
+
+0:02:19.056,0:02:23.476
+attacker's logged into the VPN -- because
+you don't have NFA enabled -- and they
+
+0:02:23.476,0:02:25.876
+start accessing devices using RDP.
+
+0:02:26.116,0:02:30.136
+You would then start to see the
+time zone of that attacker machine.
+
+0:02:30.546,0:02:34.206
+Now, typically attackers are going to
+have their machines hosted somewhere in
+
+0:02:34.206,0:02:38.356
+the cloud on various different platforms
+that are probably going to be in a
+
+0:02:38.356,0:02:42.186
+different time zone from that user or
+where your users typically log in from.
+
+0:02:42.476,0:02:46.066
+So that can help you, again, hone in
+on those suspicious RDP connections
+
+0:02:46.076,0:02:48.216
+with those strange time zone biases.
+
+0:02:48.796,0:02:51.246
+Now, of course, it's open to
+false positives, depending on
+
+0:02:51.246,0:02:54.526
+how your organization functions
+and all those sorts of things,
+
+0:02:54.726,0:02:58.396
+but it's definitely a beneficial
+event log to keep an eye out for.
+
+0:02:59.411,0:03:01.231
+So how can we use Sophos
+to search for these?
+
+0:03:01.621,0:03:03.501
+Well, it's actually incredibly simple.
+
+0:03:03.691,0:03:06.691
+There's a really neat feature in
+Sophos called Live Discover that
+
+0:03:06.701,0:03:08.671
+allows us to execute OS query.
+
+0:03:09.041,0:03:11.341
+And then we can search for
+that using the query that we've
+
+0:03:11.341,0:03:13.631
+actually put into the slides here.
+
+0:03:14.441,0:03:17.711
+So what we've done is we executed
+that on one of our test systems just
+
+0:03:17.711,0:03:19.151
+to show you what that may look like.
+
+0:03:19.291,0:03:24.171
+And at the bottom is an output of that
+query being executed and what you may see.
+
+0:03:24.511,0:03:26.511
+On the left, we have the endpoint name.
+
+0:03:26.571,0:03:28.961
+So where did this RDP connection occur on?
+
+0:03:29.511,0:03:31.451
+What date and time did that occur?
+
+0:03:31.481,0:03:34.681
+Which is really useful in looking at
+some of the other RDP logs that we've
+
+0:03:34.701,0:03:39.326
+previously discussed, to find out the
+user that logged in around this time
+
+0:03:39.326,0:03:40.816
+and would have generated this event.
+
+0:03:41.336,0:03:46.736
+The source is just where we found this
+event ID, which is 104 in that column.
+
+0:03:47.016,0:03:51.816
+And then obviously the most important
+column being the timezone bias hour.
+
+0:03:52.196,0:03:55.966
+So again, you can execute this query
+across all devices within your environment
+
+0:03:55.966,0:04:01.991
+and start to look and identify if there
+are time zone bias hours in the RDP core
+
+0:04:01.991,0:04:06.231
+TS operational event log that differ
+from what you would typically expect.
+
+0:04:07.231,0:04:08.481
+Thank you very much for listening.
+
+0:04:08.711,0:04:11.311
+I hope this has taught you something
+that maybe you didn't know about
+
+0:04:11.351,0:04:14.911
+RDP and hopefully helps you
+identify suspicious RDP connections.
+
+0:04:15.231,0:04:17.491
+Thank you very much for your time
+and catch you on the next video.

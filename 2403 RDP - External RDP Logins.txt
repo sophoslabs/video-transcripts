@@ -1,0 +1,327 @@
+0:00:00.000,0:00:03.229
+Lee Kirkpatrick: Hi, my name is Lee
+Kirkpatrick, and I'm an incident lead
+
+0:00:03.239,0:00:04.840
+with the Sophos Rapid Response team.
+
+0:00:05.130,0:00:08.469
+And in today's video, I'm going to be
+running you through a query that we've
+
+0:00:08.490,0:00:11.949
+previously discussed in one of our
+presentations as part of this series.
+
+0:00:12.390,0:00:16.233
+Specifically, the query that we're
+going to focus on today is  RDP
+
+0:00:16.233,0:00:18.393
+Logins from External IPs.sql.
+
+0:00:19.128,0:00:22.788
+Now, this query, as we previously
+discussed, is fairly self-explanatory
+
+0:00:22.808,0:00:26.098
+based on the name, but it's going
+to be looking for successful
+
+0:00:26.098,0:00:29.778
+RDP connections that have taken
+place from external IP addresses.
+
+0:00:29.788,0:00:33.158
+So that would be anything
+that's non-RFC 1918.
+
+0:00:34.058,0:00:37.258
+So what we can do is we can take
+that query, we can log into our
+
+0:00:37.258,0:00:41.458
+Sophos Central instance, which
+I've done here, navigate to Threat
+
+0:00:41.458,0:00:43.518
+Analysis Center and Live Discover.
+
+0:00:44.443,0:00:47.123
+Now, what we can do here is
+select the Designer Mode.
+
+0:00:47.303,0:00:50.653
+This is actually going to
+allow us to create a new query.
+
+0:00:50.933,0:00:53.423
+And upon selecting this option,
+what you'll see on the right
+
+0:00:53.703,0:00:55.493
+is the Create new query button.
+
+0:00:55.853,0:00:58.863
+So that's what we want to select
+after the Designer Mode option.
+
+0:00:59.763,0:01:03.843
+Now, this is going to drop us into a view
+where we can actually create a query.
+
+0:01:04.123,0:01:08.753
+And in this instance, there's a SQL
+box where we can paste that OS query
+
+0:01:08.753,0:01:11.033
+that we've copied from the GitHub page.
+
+0:01:11.813,0:01:15.743
+The second step that you want to do here
+is actually select the devices you want
+
+0:01:15.753,0:01:20.193
+to execute this query against, and we can
+do that under the Device selector option.
+
+0:01:21.013,0:01:25.373
+Now, this is a query that you should only
+be running or only works against Windows
+
+0:01:25.373,0:01:30.523
+devices, so on the Filters option here,
+we can expand Operating system and remove
+
+0:01:30.523,0:01:35.413
+macOS and Linux, and click Apply to
+only focus on Windows operating systems.
+
+0:01:35.863,0:01:39.693
+Not that if you executed this against a
+Linux device, it would cause any issues.
+
+0:01:39.693,0:01:42.303
+You would just be getting
+errors for those devices.
+
+0:01:43.093,0:01:46.773
+Once you've selected a filter that's
+appropriate for your organization,
+
+0:01:47.023,0:01:50.613
+you can then choose the devices that
+you want to execute this against.
+
+0:01:50.963,0:01:54.203
+Now typically, I would actually
+suggest running this across every
+
+0:01:54.203,0:01:56.193
+device within your organization.
+
+0:01:56.273,0:01:59.193
+Yes, there's even Windows endpoints
+that we've come across that have had
+
+0:01:59.483,0:02:01.733
+RDP exposed incorrectly to the internet.
+
+0:02:01.973,0:02:05.373
+So definitely something that I would
+recommend running this against as well.
+
+0:02:05.983,0:02:08.603
+So you can do that by selecting
+this little tick box here.
+
+0:02:09.243,0:02:12.643
+Once you're happy with your selection,
+you can click the Update Selected Devices
+
+0:02:12.643,0:02:16.403
+list to say those are the devices that we
+actually want to execute this query on.
+
+0:02:16.723,0:02:19.073
+And as you can see here, we
+have two endpoints selected.
+
+0:02:20.003,0:02:23.713
+Once you're happy with everything,
+you can execute the query by selecting
+
+0:02:23.713,0:02:25.143
+Run Query on the bottom right.
+
+0:02:25.153,0:02:28.193
+It's going to prompt you and say,
+do you want to run this untested
+
+0:02:28.233,0:02:30.113
+query, which of course we do.
+
+0:02:30.943,0:02:33.703
+And then what we'll do is we'll
+wait for the results to come back.
+
+0:02:34.363,0:02:37.653
+Now, depending on the resources
+of your machines, depending on
+
+0:02:37.653,0:02:41.133
+the network connections of those
+machines will depend on how quickly
+
+0:02:41.133,0:02:42.963
+the results actually return.
+
+0:02:43.353,0:02:46.093
+It shouldn't take too long for
+this query to actually execute,
+
+0:02:46.333,0:02:47.363
+but please do be patient.
+
+0:02:47.363,0:02:50.453
+As I say, it depends on a number of
+factors on how quickly this query
+
+0:02:50.453,0:02:52.133
+will actually return results for you.
+
+0:02:52.913,0:02:55.963
+Once it's finished, you can look at
+the status column and that will let
+
+0:02:55.963,0:02:59.393
+you know that this query has completed
+or failed for whatever reason.
+
+0:03:00.383,0:03:03.763
+If you scroll up, there's a section
+called Query results that will actually
+
+0:03:03.763,0:03:05.773
+show you the results of the query.
+
+0:03:06.123,0:03:09.673
+Now, hopefully in your environment, you
+wouldn't actually get any results back
+
+0:03:09.713,0:03:14.403
+because that potentially means that
+there's a RDP login or RDP logins from
+
+0:03:14.403,0:03:18.283
+external IP addresses and that could
+indicate potential attacker activity.
+
+0:03:18.968,0:03:22.678
+Now, the most important field to take
+note of after you've executed this
+
+0:03:22.678,0:03:24.698
+query would be the endpoint name.
+
+0:03:24.898,0:03:28.128
+So where are these RDP connections
+actually taking place to?
+
+0:03:28.128,0:03:31.688
+So what device did that RDP
+connection actually initiate on?
+
+0:03:32.058,0:03:36.708
+And as we can see, it's a
+server 22 DC and server 2022.
+
+0:03:36.718,0:03:39.338
+We only have two devices
+in our test environment.
+
+0:03:39.338,0:03:43.218
+So unfortunately, both of these
+have been logged into with RDP
+
+0:03:43.228,0:03:45.968
+from external IP addresses.
+
+0:03:46.638,0:03:50.098
+What's also really useful is to know
+the date and time that this occurred.
+
+0:03:50.488,0:03:53.978
+So expand that column out and you can
+see exactly when this event took place.
+
+0:03:54.408,0:03:58.268
+The event ID is also incredibly useful
+to understand what the event is.
+
+0:03:58.278,0:04:01.458
+And if you're not overly familiar with
+those events, there's a description
+
+0:04:01.458,0:04:04.338
+column here that will give you a
+very brief overview of what each
+
+0:04:04.338,0:04:06.218
+of those event IDs actually means.
+
+0:04:06.928,0:04:10.178
+Also, what's incredibly
+beneficial is the username.
+
+0:04:10.333,0:04:12.773
+What was the account that
+actually successfully logged in?
+
+0:04:13.213,0:04:17.413
+And subsequently, the source IP address
+is an incredibly important field as well,
+
+0:04:17.993,0:04:23.073
+because that field is going to give you
+the context of who or where the potential
+
+0:04:23.073,0:04:24.983
+attacker was actually logging in from.
+
+0:04:25.603,0:04:29.633
+Now, if you do see logins from
+these non-RFC 1918 IP addresses,
+
+0:04:29.683,0:04:32.673
+I think it's definitely something
+that warrants further investigation.
+
+0:04:33.023,0:04:36.303
+It may be a false positive, and it could
+be an administrator that's, you know,
+
+0:04:36.393,0:04:38.563
+opened RDP on a server temporarily.
+
+0:04:38.793,0:04:42.173
+But again, if the administrator
+can get in, so can attackers.
+
+0:04:42.313,0:04:45.413
+So at this point, you probably want
+to take additional measures, such as
+
+0:04:45.423,0:04:49.023
+isolating that device and bringing in
+an incident response team so they can
+
+0:04:49.303,0:04:51.453
+scope out the potential compromise.
+
+0:04:52.563,0:04:54.003
+I hope this video has been useful.
+
+0:04:54.203,0:04:57.073
+Thank you very much for your time
+and I'll catch you on the next video.

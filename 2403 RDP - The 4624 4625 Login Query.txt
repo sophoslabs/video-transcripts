@@ -1,0 +1,421 @@
+0:00:00.435,0:00:03.615
+Lee Kirkpatrick: Hi, my name is Lee
+Kirkpatrick, and I'm an incident lead
+
+0:00:03.625,0:00:05.265
+with the Sophos Rapid Response Team.
+
+0:00:05.525,0:00:08.615
+And in today's video, I'm going to
+be running you through a query that
+
+0:00:08.615,0:00:11.755
+we've discussed in one of the previous
+presentations as part of this series.
+
+0:00:12.285,0:00:17.445
+Specifically, we're going to execute
+the 4624_4625 login events query.
+
+0:00:18.055,0:00:22.295
+Now, as I've previously discussed,
+a 4624 is a successful login
+
+0:00:22.405,0:00:25.175
+and a 4625 is a failed login.
+
+0:00:25.615,0:00:29.225
+And this could be really useful and
+beneficial in identifying, for one,
+
+0:00:29.225,0:00:33.940
+successful RDP logins -- you would see a
+4624 with what's called a log on type of
+
+0:00:34.110,0:00:38.490
+10 -- but it can also help you evaluate
+and identify if there's any failed RDP
+
+0:00:38.490,0:00:41.150
+logins potentially taking place as well.
+
+0:00:41.620,0:00:44.120
+If you remember, in a previous video,
+we've discussed what was called
+
+0:00:44.120,0:00:49.510
+network-level authentication or NLA,
+which means that the actual authentication
+
+0:00:49.530,0:00:54.310
+prior to the RDP session being established
+takes place over the network first.
+
+0:00:54.840,0:00:58.790
+So this can be really useful in
+identifying potential devices that have
+
+0:00:58.790,0:01:02.800
+RDP exposed, but maybe there hasn't been
+a successful login yet, and this can be
+
+0:01:02.800,0:01:06.750
+a really nice way of identifying if any
+of your devices in the environment are
+
+0:01:06.750,0:01:12.340
+potentially exposing RDP, and there's a
+brute force attack currently taking place.
+
+0:01:12.890,0:01:17.480
+So, in order to execute this query,
+you want to take the OS query code
+
+0:01:17.560,0:01:22.270
+from the GitHub page, navigate over to
+Sophos Central, select Threat Analysis
+
+0:01:22.280,0:01:24.320
+Center, and go to Live Discover.
+
+0:01:25.170,0:01:29.260
+On the top left is the Designer Mode;
+toggle this button, and that will then
+
+0:01:29.260,0:01:32.740
+show us a new button called Create new
+query, which will actually allow us
+
+0:01:32.760,0:01:36.130
+to execute the custom OS query code
+that we've just copied from GitHub.
+
+0:01:37.220,0:01:41.060
+If we scroll down, there's a SQL
+text box where we can paste that
+
+0:01:41.060,0:01:45.470
+SQL code, and if we scroll down,
+we can then select the devices we
+
+0:01:45.470,0:01:47.210
+want to execute this query against.
+
+0:01:48.095,0:01:51.075
+Now, this is a query that only works
+against Windows operating systems,
+
+0:01:51.395,0:01:55.275
+so you'll want to deselect macOS
+and Linux and then click apply.
+
+0:01:56.095,0:01:59.865
+Then what you can do is select the devices
+you'd want to execute this query against.
+
+0:02:00.415,0:02:04.085
+Now, typically what we do as part of
+our initial investigation is execute
+
+0:02:04.085,0:02:07.065
+this across everything because we
+want to get an understanding of
+
+0:02:07.065,0:02:09.835
+exactly where these successful and
+failed logins are taking place.
+
+0:02:10.605,0:02:14.285
+Once you're happy with your device
+selection, you can click the Update
+
+0:02:14.285,0:02:18.605
+selected devices list and you'll see
+that we have two endpoints selected here.
+
+0:02:19.565,0:02:23.155
+Once we're happy, we can execute
+the query by clicking Run Query.
+
+0:02:23.535,0:02:26.825
+It's going to prompt us and say, Do
+you want to run this untested query?
+
+0:02:26.885,0:02:27.835
+And we'll say yes.
+
+0:02:28.910,0:02:31.700
+But what you'll do is you'll
+get an additional error that
+
+0:02:31.700,0:02:32.940
+maybe you're not aware of.
+
+0:02:33.360,0:02:37.230
+And in this instance, it says Undefined
+variables, and that we have to define
+
+0:02:37.230,0:02:39.600
+the variables' username and source IP.
+
+0:02:40.240,0:02:43.660
+And that's because if we go back up to
+the query, there's actually a section
+
+0:02:43.660,0:02:46.330
+here where we denote two variables.
+
+0:02:46.500,0:02:49.130
+And that is by the two dollar
+symbols that you can see here.
+
+0:02:49.610,0:02:54.810
+Anything that has $$text$$ is
+a variable with an OS query.
+
+0:02:55.480,0:03:02.935
+So what we can do is expand the variable
+editor here, add two variables, one
+
+0:03:02.955,0:03:07.385
+being username, which is what the
+error stated, and one being source IP.
+
+0:03:07.945,0:03:09.845
+Both of these are going to be type string.
+
+0:03:10.325,0:03:13.215
+And in this instance, we're not
+focusing on a specific username.
+
+0:03:13.355,0:03:16.535
+So we can use a wildcard character,
+which means any username.
+
+0:03:17.015,0:03:20.135
+And subsequently, we're not looking for
+any particular source IP at present.
+
+0:03:20.445,0:03:24.025
+So we can use a wildcard and say I
+want to search for any IP address.
+
+0:03:24.805,0:03:28.350
+Now when we execute this query,
+that will get rid of that error
+
+0:03:28.350,0:03:31.980
+regarding the variables and this
+query will successfully execute.
+
+0:03:32.750,0:03:36.680
+Now, this query will take some time
+to return, and that depends again on
+
+0:03:36.680,0:03:40.450
+a number of different factors, the
+resources of the machines, the network
+
+0:03:40.490,0:03:45.280
+connection speeds of those machines,
+also how large the security event log
+
+0:03:45.280,0:03:49.830
+is, that can have an impact on how
+quickly this query takes as well, because
+
+0:03:49.830,0:03:53.510
+a lot of the times the security event
+logs contain quite a number of events.
+
+0:03:54.150,0:03:57.240
+But what you're doing is you're waiting
+for the status column to say that this
+
+0:03:57.240,0:04:01.060
+query has finished, and then you can
+start browsing and looking at the results.
+
+0:04:02.060,0:04:05.086
+Now, this query may actually
+return quite a lot of information.
+
+0:04:05.696,0:04:09.506
+So what might be easier for
+you is exporting this here out
+
+0:04:09.506,0:04:13.156
+to a CSV and opening this in
+something like Microsoft Excel.
+
+0:04:13.696,0:04:16.696
+For this demo, I'll just continue
+to use the web UI, however.
+
+0:04:17.406,0:04:21.336
+Now again, the most important columns
+here are going to be endpoint name (so,
+
+0:04:21.346,0:04:25.581
+where are these successful or failed
+logins actually taking place on?), also,
+
+0:04:25.581,0:04:29.991
+date_time (so when are these actual
+successful or failed logins taking place).
+
+0:04:30.321,0:04:34.141
+And what could be quite useful is actually
+clicking on this column header here to a
+
+0:04:34.141,0:04:39.071
+sort either by ascending or descending,
+so we can see the furthest events or
+
+0:04:39.071,0:04:41.211
+the closest events to the current time.
+
+0:04:42.036,0:04:45.456
+Now, if we sort descending in
+this instance, we can also see
+
+0:04:45.456,0:04:47.326
+that there's a lot of 4625s.
+
+0:04:47.356,0:04:50.096
+And if you're not familiar with what
+that is, there's a little description
+
+0:04:50.096,0:04:52.016
+and it tells you it's a failed login.
+
+0:04:52.556,0:04:55.416
+Now of course, this is from the
+security event log like we previously
+
+0:04:55.416,0:04:59.146
+discussed, the username columns going
+to show us the failed logins that were
+
+0:04:59.156,0:05:00.846
+taking place for that specific user.
+
+0:05:01.026,0:05:03.246
+So in this instance, there's
+a lot of administrators.
+
+0:05:03.551,0:05:07.311
+But some very random usernames
+here as well, such as reception-ei,
+
+0:05:07.651,0:05:12.331
+novakova, so quite a number of
+various different failed usernames
+
+0:05:12.341,0:05:14.231
+here that are attempting to log on.
+
+0:05:14.951,0:05:18.401
+What's also really interesting
+is the source machine network.
+
+0:05:18.751,0:05:23.691
+Now, what this shows us is the actual
+host name of the device that's attempting,
+
+0:05:23.721,0:05:27.611
+or if it was a 4624, that actually
+managed to successfully connect.
+
+0:05:28.061,0:05:31.441
+Now this can be really, really beneficial
+because if it's not a host name that you
+
+0:05:31.451,0:05:33.871
+recognize, that could raise suspicion.
+
+0:05:34.101,0:05:35.771
+And it's something that
+you want to investigate.
+
+0:05:36.091,0:05:39.341
+It could mean that you're under
+attack potentially, so definitely
+
+0:05:39.341,0:05:41.961
+something that you want to investigate
+if you don't recognize what these
+
+0:05:41.961,0:05:43.441
+source machine networks are.
+
+0:05:43.931,0:05:46.891
+Because most organizations are going
+to have a naming convention for
+
+0:05:46.891,0:05:50.181
+devices, and if you see source machine
+networks that differ from what you
+
+0:05:50.181,0:05:53.531
+would typically expect, definitely
+something you want to investigate.
+
+0:05:54.281,0:05:58.251
+Also, what we can see here is the
+source IP address, and this instance,
+
+0:05:58.251,0:06:03.981
+they are all remote IP addresses, so
+they're non-RFC 1918 IP addresses, so
+
+0:06:03.981,0:06:07.721
+these are going to be external IPs in
+this instance, which means someone is
+
+0:06:07.721,0:06:12.171
+failing to log in to our two devices
+in the environment from external IP
+
+0:06:12.171,0:06:14.451
+addresses, and the login type is 3.
+
+0:06:15.126,0:06:17.406
+Now, again, this is something
+that you typically associate with
+
+0:06:17.406,0:06:20.846
+network based logon, so something
+like SNB, and it could be that you
+
+0:06:20.846,0:06:24.626
+unfortunately have SNB exposed, and
+we do see that in some organizations.
+
+0:06:25.006,0:06:28.216
+But in this instance, this is
+because we have RDP exposed.
+
+0:06:28.416,0:06:32.711
+And because of that network level
+authentication, we're seeing a 4625
+
+0:06:32.711,0:06:37.591
+failed login event with a logon type 3,
+which indicates a logon over the network.
+
+0:06:37.851,0:06:41.621
+So this query can be really useful
+in identifying devices that maybe
+
+0:06:41.621,0:06:44.831
+have RDP or something exposed
+to the internet that shouldn't.
+
+0:06:45.321,0:06:47.401
+I hope this video has
+been very useful for you.
+
+0:06:47.681,0:06:49.971
+Thank you very much for your time
+and catch you on the next video.
